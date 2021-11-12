@@ -1,0 +1,72 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{18C11DBB-B3BB-4368-8059-DCFE93246ABC}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="DesktopManager.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="FilePreparer.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Updater.dproj">
+            <Dependencies>DesktopManager.dproj;FilePreparer.dproj</Dependencies>
+        </Projects>
+        <Projects Include="Setup.dproj">
+            <Dependencies>Updater.dproj</Dependencies>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="DesktopManager">
+        <MSBuild Projects="DesktopManager.dproj"/>
+    </Target>
+    <Target Name="DesktopManager:Clean">
+        <MSBuild Projects="DesktopManager.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DesktopManager:Make">
+        <MSBuild Projects="DesktopManager.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="FilePreparer">
+        <MSBuild Projects="FilePreparer.dproj"/>
+    </Target>
+    <Target Name="FilePreparer:Clean">
+        <MSBuild Projects="FilePreparer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FilePreparer:Make">
+        <MSBuild Projects="FilePreparer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Updater" DependsOnTargets="DesktopManager;FilePreparer">
+        <MSBuild Projects="Updater.dproj"/>
+    </Target>
+    <Target Name="Updater:Clean" DependsOnTargets="DesktopManager:Clean;FilePreparer:Clean">
+        <MSBuild Projects="Updater.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Updater:Make" DependsOnTargets="DesktopManager:Make;FilePreparer:Make">
+        <MSBuild Projects="Updater.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Setup" DependsOnTargets="Updater">
+        <MSBuild Projects="Setup.dproj"/>
+    </Target>
+    <Target Name="Setup:Clean" DependsOnTargets="Updater:Clean">
+        <MSBuild Projects="Setup.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Setup:Make" DependsOnTargets="Updater:Make">
+        <MSBuild Projects="Setup.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="DesktopManager;FilePreparer;Updater;Setup"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="DesktopManager:Clean;FilePreparer:Clean;Updater:Clean;Setup:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="DesktopManager:Make;FilePreparer:Make;Updater:Make;Setup:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

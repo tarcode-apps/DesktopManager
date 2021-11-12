@@ -1,0 +1,42 @@
+STRINGTABLE
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+{
+0, "English"
+1, "Desktop Manager"
+2, "Settings:"
+3, "&Show wallpaper"
+4, "Wallpaper enabled"
+5, "Wallpaper disabled"
+6, "&Autostart with Windows"
+7, "&Enable animations"
+8, "&Personalization"
+9, "E&xit"
+10, "Version"
+11, "Desktop Manager &website"
+12, "https://dmanager.tarcode.ru"
+
+20, "Disable Skype's red &border"
+21, "UI effects"
+22, "Listbox smooth scrolling"
+
+40, "https://dmanager.tarcode.ru/update.uurl"
+41, "Automatic &updates"
+42, "Turn &on automatic updates"
+43, "Ch&eck for Updates"
+44, "New version of %0:s is available\nClick here for more details"
+45, "Update successful\nThe new version is %0:s"
+46, "Update failed\nClick here to visit the website"
+
+70, "I&cons style"
+71, "Windows &7"
+72, "Windows &8"
+73, "Windows &10"
+74, "&Default"
+
+91, "Disabled"
+
+130, "Disable popup window's bo&rder"
+
+150, "&Language"
+151, "&Default"
+}

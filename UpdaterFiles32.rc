@@ -1,0 +1,13 @@
+FileUpdate0 RCDATA "__temp\\DesktopManager32.gzip"
+
+STRINGTABLE
+{
+	8000, "DesktopManager32.exe" // OLD MAIN FILE
+	8001, "DesktopManager32.exe" // NEW MAIN FILE
+	
+	// UPDATE FILES
+	8002, "DesktopManager32.exe"
+
+	// MUTEX
+	8950, "DesktopManagerMutex"
+}
