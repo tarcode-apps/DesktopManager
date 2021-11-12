@@ -104,8 +104,8 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <BRCC_OutputDir>Win32\Debug\res\</BRCC_OutputDir>
-        <VerInfo_MajorVer>3</VerInfo_MajorVer>
-        <VerInfo_Keys>CompanyName=Tarasov Artyom;FileDescription=Desktop Manager;FileVersion=3.0.0.0;InternalName=;LegalCopyright=© Tarasov Artyom, 2015 - 2018;LegalTrademarks=;OriginalFilename=;ProductName=Desktop Manager;ProductVersion=3.0.0.0;Comments=Debug;ProgramID=ru.tarcode.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_MajorVer>4</VerInfo_MajorVer>
+        <VerInfo_Keys>CompanyName=Tarasov Artyom;FileDescription=Desktop Manager;FileVersion=4.0.0.0;InternalName=;LegalCopyright=© Tarasov Artyom, 2015 - 2021;LegalTrademarks=;OriginalFilename=;ProductName=Desktop Manager;ProductVersion=4.0.0.0;Comments=Debug;ProgramID=ru.tarcode.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
@@ -114,10 +114,10 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <BRCC_OutputDir>Win64\Debug\res\</BRCC_OutputDir>
-        <VerInfo_MajorVer>3</VerInfo_MajorVer>
+        <VerInfo_MajorVer>4</VerInfo_MajorVer>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Tarasov Artyom;FileDescription=Desktop Manager;FileVersion=3.0.0.0;InternalName=;LegalCopyright=© Tarasov Artyom, 2015 - 2018;LegalTrademarks=;OriginalFilename=;ProductName=Desktop Manager;ProductVersion=3.0.0.0;Comments=Debug;ProgramID=ru.tarcode.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Tarasov Artyom;FileDescription=Desktop Manager;FileVersion=4.0.0.0;InternalName=;LegalCopyright=© Tarasov Artyom, 2015 - 2021;LegalTrademarks=;OriginalFilename=;ProductName=Desktop Manager;ProductVersion=4.0.0.0;Comments=Debug;ProgramID=ru.tarcode.$(MSBuildProjectName)</VerInfo_Keys>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
     </PropertyGroup>
@@ -133,9 +133,9 @@
         <PostBuildEvent><![CDATA[(If Not Exist "$(PROJECTDIR)\Build" (mkdir "$(PROJECTDIR)\Build"))
 copy "$(OUTPUTDIR)$(OUTPUTNAME)$(OUTPUTEXT)" "$(PROJECTDIR)\Build\$(OUTPUTNAME)32$(OUTPUTEXT)"
 $(PostBuildEvent)]]></PostBuildEvent>
-        <VerInfo_MajorVer>3</VerInfo_MajorVer>
-        <VerInfo_Build>35</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=Tarasov Artyom;FileDescription=Desktop Manager;FileVersion=3.0.0.35;InternalName=Desktop Manager;LegalCopyright=© Tarasov Artyom, 2015 - 2018;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName)32.exe;ProductName=Desktop Manager 32-bit;ProductVersion=3.0.0.0;Comments=;ProgramID=ru.tarcode.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_MajorVer>4</VerInfo_MajorVer>
+        <VerInfo_Build>37</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Tarasov Artyom;FileDescription=Desktop Manager;FileVersion=4.0.0.37;InternalName=Desktop Manager;LegalCopyright=© Tarasov Artyom, 2015 - 2021;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName)32.exe;ProductName=Desktop Manager 32-bit;ProductVersion=4.0.0.0;Comments=;ProgramID=ru.tarcode.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <BT_BuildType>Debug</BT_BuildType>
@@ -147,11 +147,11 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PostBuildEvent><![CDATA[(If Not Exist "$(PROJECTDIR)\Build" (mkdir "$(PROJECTDIR)\Build"))
 copy "$(OUTPUTDIR)$(OUTPUTNAME)$(OUTPUTEXT)" "$(PROJECTDIR)\Build\$(OUTPUTNAME)64$(OUTPUTEXT)"
 $(PostBuildEvent)]]></PostBuildEvent>
-        <VerInfo_MajorVer>3</VerInfo_MajorVer>
-        <VerInfo_Build>35</VerInfo_Build>
+        <VerInfo_MajorVer>4</VerInfo_MajorVer>
+        <VerInfo_Build>37</VerInfo_Build>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Tarasov Artyom;FileDescription=Desktop Manager;FileVersion=3.0.0.35;InternalName=Desktop Manager;LegalCopyright=© Tarasov Artyom, 2015 - 2018;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName)64.exe;ProductName=Desktop Manager 64-bit;ProductVersion=3.0.0.0;Comments=;ProgramID=ru.tarcode.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Tarasov Artyom;FileDescription=Desktop Manager;FileVersion=4.0.0.37;InternalName=Desktop Manager;LegalCopyright=© Tarasov Artyom, 2015 - 2021;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName)64.exe;ProductName=Desktop Manager 64-bit;ProductVersion=4.0.0.0;Comments=;ProgramID=ru.tarcode.$(MSBuildProjectName)</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
