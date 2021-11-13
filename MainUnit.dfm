@@ -17,7 +17,6 @@ object DesktopManagerForm: TDesktopManagerForm
   Font.Style = []
   FormStyle = fsStayOnTop
   KeyPreview = True
-  OldCreateOrder = False
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnDeactivate = FormDeactivate
@@ -91,7 +90,6 @@ object DesktopManagerForm: TDesktopManagerForm
     Constraints.MinHeight = 43
     ParentBackground = False
     TabOrder = 2
-    ExplicitTop = 206
     object LinkGridPanel: TGridPanel
       Left = 0
       Top = 0
@@ -153,7 +151,6 @@ object DesktopManagerForm: TDesktopManagerForm
     Padding.Bottom = 12
     ParentColor = True
     TabOrder = 1
-    ExplicitTop = 48
     object LabelConfig: TLabel
       AlignWithMargins = True
       Left = 16

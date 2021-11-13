@@ -63,6 +63,7 @@ type
     property Enable: Boolean read FEnable write SetEnable;
     property LastCheck: TDateTime read FLastCheck;
     property SkipVersion: TVersion read FSkipVersion;
+    property IsCheckInProgress: Boolean read FCheckInProgress;
     property StartupUpdateStatus: TStartupUpdateStatus read GetStartupUpdateStatus;
     property ID: TAppID read FID;
 
