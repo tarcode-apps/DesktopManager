@@ -8,24 +8,24 @@ uses
   GdiPlus;
 
 function GenerateGPBitmapFromBitmap(BitmapList: IGPImage;
-  Indexes: array of Integer; const Dpi: TPoint): IGPBitmap;
+  Indexes: array of Integer; LineCount: Byte; Line: Byte; const Dpi: TPoint): IGPBitmap;
 
 function GenerateGPBitmapFromRes(ResName: string;
-  Indexes: array of Integer; const Dpi: TPoint): IGPBitmap;
+  Indexes: array of Integer; LineCount: Byte; Line: Byte; const Dpi: TPoint): IGPBitmap;
 
 function HBitmapToHIcon(hBmp: HBITMAP): HICON;
 
 implementation
 
 function GenerateGPBitmapFromBitmap(BitmapList: IGPImage;
-  Indexes: array of Integer; const Dpi: TPoint): IGPBitmap;
+  Indexes: array of Integer; LineCount: Byte; Line: Byte; const Dpi: TPoint): IGPBitmap;
 var
   SizeY: Cardinal;
   Graphic: IGPGraphics;
   I: Integer;
 begin
   Result := nil;
-  SizeY := BitmapList.Height;
+  SizeY := BitmapList.Height div LineCount;
 
   Result := TGPBitmap.Create(Integer(SizeY), Integer(SizeY));
   Result.SetResolution(BitmapList.HorizontalResolution,
@@ -34,13 +34,13 @@ begin
   Graphic := TGPGraphics.Create(Result);
   for I := Low(Indexes) to High(Indexes) do
     if Indexes[I] >= 0 then begin
-      Graphic.DrawImage(BitmapList, -SizeY*Indexes[i], 0);
+      Graphic.DrawImage(BitmapList, -SizeY*Indexes[i], -SizeY*Line);
     end;
   Result.SetResolution(Dpi.X, Dpi.Y);
 end;
 
 function GenerateGPBitmapFromRes(ResName: string;
-  Indexes: array of Integer; const Dpi: TPoint): IGPBitmap;
+  Indexes: array of Integer; LineCount: Byte; Line: Byte; const Dpi: TPoint): IGPBitmap;
 var
   ResStream: TResourceStream;
   Stream: IStream;
@@ -51,7 +51,7 @@ begin
   try
     Stream := TStreamAdapter.Create(ResStream);
     BitmapList := TGPBitmap.Create(Stream);
-    Result := GenerateGPBitmapFromBitmap(BitmapList, Indexes, Dpi);
+    Result := GenerateGPBitmapFromBitmap(BitmapList, Indexes, LineCount, Line, Dpi);
   finally
     Stream := nil;
     ResStream.Free;

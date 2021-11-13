@@ -13,8 +13,9 @@ uses
   Core.Startup,
   Core.Language, Core.Language.Controls,
   Core.UI, Core.UI.Controls, Core.UI.Notifications,
-  Desktop, Desktop.Skype, Desktop.Icons,
+  Desktop, Desktop.Skype,
   Tray.Notify.Window, Tray.Notify.Controls,
+  Icon.Renderers, Icons.Manager,
   Versions, Versions.Info, Versions.Helpers,
   HotKey, HotKey.Handler;
 
@@ -128,6 +129,7 @@ type
     procedure LoadIcon; override;
     procedure Loadlocalization;
     procedure LoadAvailableLocalizetions;
+    procedure DoSystemUsesLightThemeChange(LightTheme: Boolean); override;
     procedure DoSystemBorderChanged(var SystemBorder: TSystemBorder); override;
 
     function DefaultConfig: TConfig;
@@ -151,6 +153,8 @@ type
 
     HotKeyHandler: THotKeyHendler;
 
+    FIconsManager: TIconsManager;
+
     procedure AutorunManagerAutorun(Sender: TObject; Enable: Boolean);
 
     procedure UpdateTrayMenuHotKey;
@@ -161,6 +165,10 @@ type
     procedure OpenPersonalization;
 
     procedure SetUIInfo(const Value: TUIInfo);
+
+    procedure IconHelperChange(Sender: TObject);
+
+    function GetIconOptions: TIconsOptions;
 
     procedure DesktopManagerDisableOverlappedContent(Sender: TObject; Capable: Boolean; State: Boolean);
     procedure DesktopManagerClientAreaAnimation(Sender: TObject; Capable: Boolean; State: Boolean);
@@ -176,8 +184,11 @@ type
     procedure AutoUpdateSchedulerInstalling(Sender: TObject);
     procedure AutoUpdateSchedulerSkip(Sender: TObject; Version: TVersion);
     procedure AutoUpdateSchedulerAvalible(Sender: TObject; Version: TVersion);
+
+    procedure WMThemeChanged(var Message: TMessage); message WM_THEMECHANGED;
   public
     property UIInfo: TUIInfo read FUIInfo write SetUIInfo;
+    property IconOptions: TIconsOptions read GetIconOptions;
   end;
 
 var
@@ -244,8 +255,16 @@ begin
   // Инициализация автозагрузки
   AutorunManager.OnAutorun := AutorunManagerAutorun;
 
-  // Инициализация значков
-  TIconHelper.IconStyle := Conf.IconStyle;
+  // Icons
+  FIconsManager := TIconsManager.Create;
+  IconOptions.IconStyle := Conf.IconStyle;
+  IconOptions.IconStyle := Conf.IconStyle;
+  if IsSystemUsesLightTheme then
+    IconOptions.IconTheme := ithDark
+  else
+    IconOptions.IconTheme := ithLight;
+  IconOptions.TrayIconDark := TrayIcon.IsTrayIconDark;
+  IconOptions.OnChange2 := IconHelperChange;
 
   TrayMenuIconStyleOld.Checked    := Conf.IconStyle = isOld;
   TrayMenuIconStyleWin8.Checked   := Conf.IconStyle = isWin8;
@@ -427,20 +446,17 @@ end;
 
 procedure TDesktopManagerForm.TrayMenuIconStyleOldClick(Sender: TObject);
 begin
-  TIconHelper.IconStyle := isOld;
-  LoadIcon;
+  IconOptions.IconStyle := isOld;
 end;
 
 procedure TDesktopManagerForm.TrayMenuIconStyleWin8Click(Sender: TObject);
 begin
-  TIconHelper.IconStyle := isWin8;
-  LoadIcon;
+  IconOptions.IconStyle := isWin8;
 end;
 
 procedure TDesktopManagerForm.TrayMenuIconStyleWin10Click(Sender: TObject);
 begin
-  TIconHelper.IconStyle := isWin10;
-  LoadIcon;
+  IconOptions.IconStyle := isWin10;
 end;
 
 procedure TDesktopManagerForm.TrayMenuLanguageItemClick(Sender: TObject);
@@ -668,6 +684,11 @@ begin
 end;
 {$ENDREGION}
 
+procedure TDesktopManagerForm.WMThemeChanged(var Message: TMessage);
+begin
+  IconOptions.TrayIconDark := TrayIcon.IsTrayIconDark;
+end;
+
 procedure TDesktopManagerForm.UpdateTrayMenuHotKey;
 var
   HotKeyText: string;
@@ -735,17 +756,17 @@ var
 begin
   IconParams.Create(not TDesktopManager.DisableOverlappedContent, TSkypeCorners.SkypeSharing);
 
-  TrayIcon.Icon := TIconHelper.GetIcon(IconParams, PixelsPerInch);
+  TrayIcon.Icon := FIconsManager.GetIcon(IconParams, GetCurrentPPI);
 
   if IsWindowsVistaOrGreater then
   begin
     DeleteObject(ImageIcon.Picture.Bitmap.Handle);
-    ImageIcon.Picture.Bitmap.Handle := TIconHelper.GetImage(IconParams, PixelsPerInch);
+    ImageIcon.Picture.Bitmap.Handle := FIconsManager.GetImage(IconParams, GetCurrentPPI);
   end
   else
   begin
     DeleteObject(ImageIcon.Picture.Icon.Handle);
-    ImageIcon.Picture.Icon.Handle := TIconHelper.GetImageAsIcon(IconParams, PixelsPerInch);
+    ImageIcon.Picture.Icon.Handle := FIconsManager.GetImageAsIcon(IconParams, GetCurrentPPI);
   end;
 end;
 
@@ -782,7 +803,6 @@ begin
 
   TrayMenuIconStyle.Caption         := TLang[70]; // Стиль значков
   TrayMenuIconStyleOld.Caption      := TLang[74]; // По умолчанию
-  //TrayMenuIconStyleWin7.Caption     := TLang[71]; // Windows 7
   TrayMenuIconStyleWin8.Caption     := TLang[72]; // Windows 8
   TrayMenuIconStyleWin10.Caption    := TLang[73]; // Windows 10
 
@@ -833,6 +853,16 @@ begin
   end;
 end;
 
+procedure TDesktopManagerForm.DoSystemUsesLightThemeChange(LightTheme: Boolean);
+begin
+  inherited;
+
+  if LightTheme then
+    IconOptions.IconTheme := ithDark
+  else
+    IconOptions.IconTheme := ithLight;
+end;
+
 procedure TDesktopManagerForm.DoSystemBorderChanged(var SystemBorder: TSystemBorder);
 begin
   inherited;
@@ -862,11 +892,21 @@ begin
   end;
 end;
 
+procedure TDesktopManagerForm.IconHelperChange(Sender: TObject);
+begin
+  LoadIcon;
+end;
+
+function TDesktopManagerForm.GetIconOptions: TIconsOptions;
+begin
+  Result := FIconsManager.Options;
+end;
+
 {$REGION 'Config'}
 function TDesktopManagerForm.DefaultConfig: TConfig;
 begin
   Result.ID := TAutoUpdateScheduler.NewID;
-  Result.IconStyle := TIconHelper.DefaultIconStyle;
+  Result.IconStyle := TIconsOptions.DefaultIconStyle;
   Result.SystemBorder := sbDefault;
   Result.AutoUpdateEnable := True;
   Result.AutoUpdateLastCheck := 0;
@@ -959,7 +999,7 @@ var
   Conf: TConfig;
 begin
   Conf.ID := AutoUpdateScheduler.ID;
-  Conf.IconStyle := TIconHelper.IconStyle;
+  Conf.IconStyle := IconOptions.IconStyle;
   Conf.SystemBorder := SystemBorder;
   Conf.AutoUpdateEnable := AutoUpdateScheduler.Enable;
   Conf.AutoUpdateLastCheck := AutoUpdateScheduler.LastCheck;
