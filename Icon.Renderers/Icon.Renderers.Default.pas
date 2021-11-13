@@ -85,6 +85,13 @@ end;
 function TDefaultIconRenderer.GetIconListName(Dpi: Integer): string;
 begin
   case FOptions.IconStyle of
+    isWin11:
+    begin
+      if Dpi <= 96  then Exit('Win11Icons16');
+      if Dpi <= 120 then Exit('Win11Icons20');
+      if Dpi <= 144 then Exit('Win11Icons24');
+      Exit('Win11Icons32');
+    end;
     isWin10:
     begin
       if Dpi <= 96  then Exit('Win10IconList16');
@@ -104,6 +111,13 @@ end;
 function TDefaultIconRenderer.GetImageListName(Dpi: Integer): string;
 begin
   case FOptions.IconStyle of
+    isWin11:
+    begin
+      if Dpi <= 96  then Exit('Win11Images32');
+      if Dpi <= 120 then Exit('Win11Images44');
+      if Dpi <= 144 then Exit('Win11Images44');
+      Exit('Win11Images44');
+    end;
     isWin10:
     begin
       if Dpi <= 96  then Exit('Win10ImageList32');

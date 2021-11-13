@@ -82,8 +82,9 @@ type
     Link: TStaticText;
     TrayMenuIconStyle: TMenuItem;
     TrayMenuIconStyleOld: TMenuItem;
-    TrayMenuIconStyleWin10: TMenuItem;
     TrayMenuIconStyleWin8: TMenuItem;
+    TrayMenuIconStyleWin10: TMenuItem;
+    TrayMenuIconStyleWin11: TMenuItem;
     TrayMenuLanguage: TMenuItem;
     TrayMenuLanguageSystem: TMenuItem;
     TrayMenuSeparator5: TMenuItem;
@@ -117,8 +118,9 @@ type
     procedure TrayMenuUIEffectsClick(Sender: TObject);
     procedure TrayMenuListboxSmoothScrollingClick(Sender: TObject);
     procedure TrayMenuIconStyleOldClick(Sender: TObject);
-    procedure TrayMenuIconStyleWin10Click(Sender: TObject);
     procedure TrayMenuIconStyleWin8Click(Sender: TObject);
+    procedure TrayMenuIconStyleWin10Click(Sender: TObject);
+    procedure TrayMenuIconStyleWin11Click(Sender: TObject);
     procedure TrayMenuLanguageItemClick(Sender: TObject);
     procedure TrayMenuDisableSystemBorderClick(Sender: TObject);
 
@@ -269,6 +271,7 @@ begin
   TrayMenuIconStyleOld.Checked    := Conf.IconStyle = isOld;
   TrayMenuIconStyleWin8.Checked   := Conf.IconStyle = isWin8;
   TrayMenuIconStyleWin10.Checked  := Conf.IconStyle = isWin10;
+  TrayMenuIconStyleWin11.Checked  := Conf.IconStyle = isWin11;
 
   // Инициализация TDesktopManager
   TDesktopManager.OnDisableOverlappedContent := DesktopManagerDisableOverlappedContent;
@@ -457,6 +460,11 @@ end;
 procedure TDesktopManagerForm.TrayMenuIconStyleWin10Click(Sender: TObject);
 begin
   IconOptions.IconStyle := isWin10;
+end;
+
+procedure TDesktopManagerForm.TrayMenuIconStyleWin11Click(Sender: TObject);
+begin
+  IconOptions.IconStyle := isWin11;
 end;
 
 procedure TDesktopManagerForm.TrayMenuLanguageItemClick(Sender: TObject);
@@ -805,6 +813,7 @@ begin
   TrayMenuIconStyleOld.Caption      := TLang[74]; // По умолчанию
   TrayMenuIconStyleWin8.Caption     := TLang[72]; // Windows 8
   TrayMenuIconStyleWin10.Caption    := TLang[73]; // Windows 10
+  TrayMenuIconStyleWin11.Caption    := TLang[75]; // Windows 11
 
   TrayMenuDisableSystemBorder.Caption := TLang[130]; // Отключить заголовок окна
 

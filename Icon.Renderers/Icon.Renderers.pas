@@ -8,7 +8,7 @@ uses
   Versions.Helpers;
 
 type
-  TIconStyle = (isOld, isWin8, isWin10);
+  TIconStyle = (isOld, isWin8, isWin10, isWin11);
   TIconTheme = (ithLight, ithDark);
 
   TIconParams = record
@@ -55,6 +55,7 @@ implementation
 
 class function TIconsOptions.DefaultIconStyle: TIconStyle;
 begin
+  if IsWindows11OrGreater then Exit(isWin11);
   if IsWindows10OrGreater then Exit(isWin10);
 
   Result := isWin8;

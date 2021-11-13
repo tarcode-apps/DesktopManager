@@ -323,6 +323,12 @@ object DesktopManagerForm: TDesktopManagerForm
         RadioItem = True
         OnClick = TrayMenuIconStyleWin10Click
       end
+      object TrayMenuIconStyleWin11: TMenuItem
+        AutoCheck = True
+        Caption = 'IconStyleWin11'
+        RadioItem = True
+        OnClick = TrayMenuIconStyleWin11Click
+      end
     end
     object TrayMenuLanguage: TMenuItem
       Caption = 'Language'

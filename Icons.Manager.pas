@@ -14,8 +14,6 @@ uses
 type
   TIconsManager = class
   strict private
-    class function IsFlag(b: Byte; Flag: Byte): Boolean; inline; static;
-  strict private
     FRenderer: IIconRenderer;
 
     FOptions: TIconsOptions;
@@ -38,11 +36,6 @@ type
 implementation
 
 { TIconsManager }
-
-class function TIconsManager.IsFlag(b, Flag: Byte): Boolean;
-begin
-  Result:= b and Flag = Flag;
-end;
 
 constructor TIconsManager.Create;
 begin
@@ -85,7 +78,7 @@ begin
 
   case FOptions.IconStyle of
     isOld: FRenderer := TLegacyIconRenderer.Create(FOptions);
-    isWin8, isWin10: FRenderer := TDefaultIconRenderer.Create(FOptions);
+    isWin8..isWin11: FRenderer := TDefaultIconRenderer.Create(FOptions);
     else raise Exception.Create('Not supported icon style');
   end;
   Result := FRenderer;

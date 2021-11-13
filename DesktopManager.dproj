@@ -300,6 +300,30 @@ $(PostBuildEvent)]]></PostBuildEvent>
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>Win10IconList24</ResourceId>
         </RcItem>
+        <RcItem Include="Icon\Win11Icons16.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>Win11Icons16</ResourceId>
+        </RcItem>
+        <RcItem Include="Icon\Win11Icons20.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>Win11Icons20</ResourceId>
+        </RcItem>
+        <RcItem Include="Icon\Win11Icons24.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>Win11Icons24</ResourceId>
+        </RcItem>
+        <RcItem Include="Icon\Win11Icons32.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>Win11Icons32</ResourceId>
+        </RcItem>
+        <RcItem Include="Icon\Win11Images32.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>Win11Images32</ResourceId>
+        </RcItem>
+        <RcItem Include="Icon\Win11Images44.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>Win11Images44</ResourceId>
+        </RcItem>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -377,17 +401,90 @@ $(PostBuildEvent)]]></PostBuildEvent>
             </Delphi.Personality>
             <Deployment Version="3">
                 <DeployFile LocalName="Icon\OldIconList20.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\Enable.ico" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\Win10IconList24.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\Win11Icons16.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Icon\Win11Icons32.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win32\Release\DesktopManager.exe" Configuration="Release" Class="ProjectOutput"/>
+                <DeployFile LocalName="Icon\Win8IconList32.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Icon\Win11Images44.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Icon\Win8IconList24.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\Win11Icons20.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Icon\OldIconList32.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Icon\OldImageList44.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\OldIconList16.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Icon\OldIconList24.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\Win10IconList20.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\Win8ImageList44.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win64\Release\DesktopManager.exe" Configuration="Release" Class="ProjectOutput"/>
+                <DeployFile LocalName="Icon\Win8ImageList32.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\Win10IconList16.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\DisableSharing.ico" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\Win10IconList32.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\Win8IconList20.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\EnableSharing.ico" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\Win10ImageList32.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\Win8ImageList32.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Icon\Win8IconList24.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Icon\Win8ImageList44.png" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="Icon\Win8IconList16.png" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile LocalName="Icon\Enable.ico" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile LocalName="Icon\Win8IconList32.png" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile LocalName="Icon\Win10IconList24.png" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="Icon\Win10ImageList32.png" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="Icon\Win8IconList32.png" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="Icon\Win10ImageList44.png" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="Icon\Win8IconList16.png" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
@@ -401,20 +498,12 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win32\Release\DesktopManager.exe" Configuration="Release" Class="ProjectOutput"/>
                 <DeployFile LocalName="Icon\Win10IconList24.png" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Icon\Win8IconList32.png" Configuration="Release" Class="ProjectFile">
-                    <Platform Name="Win64">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Icon\Win8IconList24.png" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="Icon\Disable.ico" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="Icon\OldImageList32.png" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
@@ -428,20 +517,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Icon\OldIconList32.png" Configuration="Release" Class="ProjectFile">
-                    <Platform Name="Win64">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="Icon\Win8IconList20.png" Configuration="Release" Class="ProjectFile">
-                    <Platform Name="Win64">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Icon\OldImageList44.png" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile LocalName="Icon\OldIconList16.png" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -453,15 +529,13 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Icon\OldIconList24.png" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile LocalName="Icon\OldImageList44.png" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="Icon\Win11Images32.png" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Icon\Win10IconList20.png" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile LocalName="Icon\Win8ImageList44.png" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="Icon\OldImageList44.png" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -480,37 +554,23 @@ $(PostBuildEvent)]]></PostBuildEvent>
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="Icon\OldImageList32.png" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile LocalName="Win64\Release\DesktopManager.exe" Configuration="Release" Class="ProjectOutput"/>
-                <DeployFile LocalName="Icon\Win8ImageList32.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Icon\Win11Icons24.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Icon\Win10ImageList44.png" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Icon\Win10IconList16.png" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="Icon\OldIconList32.png" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile LocalName="Icon\Win10IconList32.png" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="Icon\OldIconList16.png" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile LocalName="Icon\Win8IconList20.png" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile LocalName="Icon\DisableSharing.ico" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile LocalName="Icon\EnableSharing.ico" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile LocalName="Icon\Win10ImageList32.png" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="Win64\Release\DesktopManager.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win64">
                         <RemoteName>DesktopManager.exe</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Icon\Win8ImageList32.png" Configuration="Release" Class="ProjectFile">
-                    <Platform Name="Win64">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Icon\Win8IconList24.png" Configuration="Release" Class="ProjectFile">
-                    <Platform Name="Win64">
-                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

@@ -32,6 +32,7 @@ LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
 72, "Windows &8"
 73, "Windows &10"
 74, "По &умолчанию"
+75, "&Windows 11"
 
 91, "Отключено"
 
