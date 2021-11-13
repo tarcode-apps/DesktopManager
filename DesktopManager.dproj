@@ -134,8 +134,8 @@
 copy "$(OUTPUTDIR)$(OUTPUTNAME)$(OUTPUTEXT)" "$(PROJECTDIR)\Build\$(OUTPUTNAME)32$(OUTPUTEXT)"
 $(PostBuildEvent)]]></PostBuildEvent>
         <VerInfo_MajorVer>4</VerInfo_MajorVer>
-        <VerInfo_Build>37</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=Tarasov Artyom;FileDescription=Desktop Manager;FileVersion=4.0.0.37;InternalName=Desktop Manager;LegalCopyright=© Tarasov Artyom, 2015 - 2021;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName)32.exe;ProductName=Desktop Manager 32-bit;ProductVersion=4.0.0.0;Comments=;ProgramID=ru.tarcode.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Build>38</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Tarasov Artyom;FileDescription=Desktop Manager;FileVersion=4.0.0.38;InternalName=Desktop Manager;LegalCopyright=© Tarasov Artyom, 2015 - 2021;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName)32.exe;ProductName=Desktop Manager 32-bit;ProductVersion=4.0.0.0;Comments=;ProgramID=ru.tarcode.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <BT_BuildType>Debug</BT_BuildType>
@@ -148,10 +148,10 @@ $(PostBuildEvent)]]></PostBuildEvent>
 copy "$(OUTPUTDIR)$(OUTPUTNAME)$(OUTPUTEXT)" "$(PROJECTDIR)\Build\$(OUTPUTNAME)64$(OUTPUTEXT)"
 $(PostBuildEvent)]]></PostBuildEvent>
         <VerInfo_MajorVer>4</VerInfo_MajorVer>
-        <VerInfo_Build>37</VerInfo_Build>
+        <VerInfo_Build>38</VerInfo_Build>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Tarasov Artyom;FileDescription=Desktop Manager;FileVersion=4.0.0.37;InternalName=Desktop Manager;LegalCopyright=© Tarasov Artyom, 2015 - 2021;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName)64.exe;ProductName=Desktop Manager 64-bit;ProductVersion=4.0.0.0;Comments=;ProgramID=ru.tarcode.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Tarasov Artyom;FileDescription=Desktop Manager;FileVersion=4.0.0.38;InternalName=Desktop Manager;LegalCopyright=© Tarasov Artyom, 2015 - 2021;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName)64.exe;ProductName=Desktop Manager 64-bit;ProductVersion=4.0.0.0;Comments=;ProgramID=ru.tarcode.$(MSBuildProjectName)</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
