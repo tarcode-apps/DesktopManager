@@ -13,4 +13,5 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 909, "Close"
 910, "An error has occurred while downloading updates"
 911, "Unable to initialize the update"
+912, "Current Version"
 }

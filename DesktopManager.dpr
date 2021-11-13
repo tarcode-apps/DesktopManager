@@ -67,10 +67,8 @@ var
   CallExit: Boolean;
   ExitCode: UINT;
   Registry: TRegistry;
-  Lang: string;
 
 begin
-  Lang := '';
   Registry := TRegistry.Create;
   try
     try
@@ -78,8 +76,10 @@ begin
       if Registry.KeyExists(REG_Key) then
         if Registry.OpenKeyReadOnly(REG_Key) then
         try
-          if Registry.ValueExists(REG_Language) then
-            Lang := Registry.ReadString(REG_Language);
+          if Registry.ValueExists(REG_LanguageId) then
+            TLang.LanguageId := Registry.ReadInteger(REG_LanguageId)
+          else if Registry.ValueExists(REG_Language) then
+            TLang.LanguageId := TLang.LocaleNameToLCID(Registry.ReadString(REG_Language));
         finally
           Registry.CloseKey;
         end;
@@ -87,11 +87,8 @@ begin
       Registry.Free;
     end;
   except
-    // ignore
+    TLang.GetStringRes(HInstance, 0, TLang.EffectiveLanguageId);
   end;
-  if Lang <> '' then TLang.LocaleName := Lang;
-
-  //TLang.LocaleName := 'en-US';
 
   //TLang.LanguageId := MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US);       // 1033 (0x0409)
 

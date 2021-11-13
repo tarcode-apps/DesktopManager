@@ -5,6 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, Winapi.ShellAPI,
   System.SysUtils, System.Variants, System.Classes, System.Win.Registry,
+  System.Generics.Collections, System.Generics.Defaults,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls,
   Vcl.ExtCtrls, Vcl.Buttons,
   Autorun.Manager,
@@ -28,6 +29,7 @@ const
   REG_AutoUpdateSkipVersion = 'AutoUpdateSkipVersion';
   REG_SystemBorder = 'SystemBorder';
   REG_Language = 'Language';
+  REG_LanguageId = 'LanguageId';
 
   HotKeyDesktopBackground = 10;
   HotKeyAnimations = 20;
@@ -41,7 +43,6 @@ type
     AutoUpdateLastCheck: TDateTime;
     AutoUpdateSkipVersion: TVersion;
     SystemBorder: TSystemBorder;
-    Language: string;
   end;
 
   TUIInfo = (UIInfoHide, UIInfoSN);
@@ -142,11 +143,9 @@ type
     LockerListboxSmoothScrolling: ILocker;
     LockerSaveConfig: ILocker;
     LockerSystemBorder: ILocker;
-    LockerLanguage: ILocker;
     LockerSkypeCorners: ILocker;
 
     FUIInfo: TUIInfo;
-    FLanguage: string;
 
     AutoUpdateScheduler: TAutoUpdateScheduler;
 
@@ -162,7 +161,6 @@ type
     procedure OpenPersonalization;
 
     procedure SetUIInfo(const Value: TUIInfo);
-    procedure SetLanguage(const Value: string);
 
     procedure DesktopManagerDisableOverlappedContent(Sender: TObject; Capable: Boolean; State: Boolean);
     procedure DesktopManagerClientAreaAnimation(Sender: TObject; Capable: Boolean; State: Boolean);
@@ -180,7 +178,6 @@ type
     procedure AutoUpdateSchedulerAvalible(Sender: TObject; Version: TVersion);
   public
     property UIInfo: TUIInfo read FUIInfo write SetUIInfo;
-    property Language: string read FLanguage write SetLanguage;
   end;
 
 var
@@ -201,7 +198,6 @@ begin
   LockerUIEffects               := TLocker.Create;
   LockerListboxSmoothScrolling  := TLocker.Create;
   LockerSystemBorder            := TLocker.Create;
-  LockerLanguage                := TLocker.Create;
   LockerSaveConfig              := TLocker.Create;
   LockerSkypeCorners            := TLocker.Create;
 
@@ -289,7 +285,6 @@ begin
   TrayMenuAutoUpdateEnable.Checked := AutoUpdateScheduler.Enable;
 
   // Загрузка локализации
-  FLanguage := TLang.ResolveLocaleName(Conf.Language);
   LoadAvailableLocalizetions;
   Loadlocalization;
 
@@ -449,13 +444,49 @@ begin
 end;
 
 procedure TDesktopManagerForm.TrayMenuLanguageItemClick(Sender: TObject);
+var
+  NewLanguageId, LastEffectiveLanguageId: LANGID;
+  StartUpInfo : TStartUpInfo;
+  ProcessInfo : TProcessInformation;
 begin
-  if LockerLanguage.IsLocked then Exit;
-
   if (Sender is TLanguageMenuItem) then
-    Language := TLang.LCIDToLocaleName((Sender as TLanguageMenuItem).Localization.LanguageId)
+    NewLanguageId := (Sender as TLanguageMenuItem).Localization.LanguageId
   else
-    Language := '';
+    NewLanguageId := 0;
+
+  if TLang.LanguageId = NewLanguageId then Exit;
+
+  LastEffectiveLanguageId := TLang.EffectiveLanguageId;
+  TLang.LanguageId := NewLanguageId;
+  if LastEffectiveLanguageId = TLang.EffectiveLanguageId then Exit;
+
+  Loadlocalization;
+
+  SaveCurrentConfig;
+
+  TMutexLocker.Unlock;
+  TrayIcon.Visible := False;
+
+  ZeroMemory(@StartUpInfo, SizeOf(StartUpInfo));
+  StartUpInfo.cb := SizeOf(StartUpInfo);
+
+  if not CreateProcess(LPCTSTR(Application.ExeName), nil, nil, nil, True,
+    GetPriorityClass(GetCurrentProcess), nil, nil, StartUpInfo, ProcessInfo) then
+  begin
+    TMutexLocker.Lock;
+    TrayIcon.Visible := True;
+    Exit;
+  end;
+
+  LockerSaveConfig.Lock;
+  try
+    Application.Terminate;
+  finally
+    CloseHandle(ProcessInfo.hProcess);
+    CloseHandle(ProcessInfo.hThread);
+
+    ExitProcess(0);
+  end;
 end;
 
 procedure TDesktopManagerForm.TrayMenuDisableSystemBorderClick(Sender: TObject);
@@ -776,18 +807,27 @@ var
   MenuItem: TMenuItem;
 begin
   AvailableLocalizations := TLang.GetAvailableLocalizations(0);
+  AvailableLocalizations.Sort(TComparer<TAvailableLocalization>.Construct(
+    function(const Left, Right: TAvailableLocalization): Integer
+    begin
+      Result := string.Compare(
+        Left.Value,
+        Right.Value,
+        [coLingIgnoreCase],
+        MAKELCID(TLang.LanguageId, SORT_DEFAULT));
+    end
+  ));
   try
     for Localization in AvailableLocalizations do
     begin
       MenuItem := TLanguageMenuItem.Create(PopupMenuTray, Localization);
       MenuItem.OnClick := TrayMenuLanguageItemClick;
-      if Language <> '' then
-        MenuItem.Checked := TLang.LCIDToLocaleName(Localization.LanguageId) = Language;
+      MenuItem.Checked := Localization.LanguageId = TLang.LanguageId;
 
       TrayMenuLanguage.Add(MenuItem);
     end;
 
-    TrayMenuLanguageSystem.Checked := Language = '';
+    TrayMenuLanguageSystem.Checked := TLang.LanguageId = 0;
   finally
     AvailableLocalizations.Free;
   end;
@@ -822,48 +862,6 @@ begin
   end;
 end;
 
-procedure TDesktopManagerForm.SetLanguage(const Value: string);
-var
-  CurrentLanguageId: LANGID;
-  StartUpInfo : TStartUpInfo;
-  ProcessInfo : TProcessInformation;
-begin
-  if FLanguage = Value then Exit;
-
-  FLanguage := Value;
-  CurrentLanguageId := TLang.LanguageId;
-  TLang.LocaleName := FLanguage;
-  if CurrentLanguageId = TLang.LanguageId then Exit;
-
-  Loadlocalization;
-
-  SaveCurrentConfig;
-
-  TMutexLocker.Unlock;
-  TrayIcon.Visible := False;
-
-  ZeroMemory(@StartUpInfo, SizeOf(StartUpInfo));
-  StartUpInfo.cb := SizeOf(StartUpInfo);
-
-  if not CreateProcess(LPCTSTR(Application.ExeName), nil, nil, nil, True,
-    GetPriorityClass(GetCurrentProcess), nil, nil, StartUpInfo, ProcessInfo) then
-  begin
-    TMutexLocker.Lock;
-    TrayIcon.Visible := True;
-    Exit;
-  end;
-
-  LockerSaveConfig.Lock;
-  try
-    Application.Terminate;
-  finally
-    CloseHandle(ProcessInfo.hProcess);
-    CloseHandle(ProcessInfo.hThread);
-
-    ExitProcess(0);
-  end;
-end;
-
 {$REGION 'Config'}
 function TDesktopManagerForm.DefaultConfig: TConfig;
 begin
@@ -873,7 +871,6 @@ begin
   Result.AutoUpdateEnable := True;
   Result.AutoUpdateLastCheck := 0;
   Result.AutoUpdateSkipVersion := TVersion.Empty;
-  Result.Language := '';
   Result.SkypeCorners := True;
 end;
 
@@ -920,7 +917,6 @@ begin
     Result.AutoUpdateEnable := ReadBoolDef(REG_AutoUpdateEnable, Default.AutoUpdateEnable);
     Result.AutoUpdateLastCheck := StrToDateTimeDef(ReadStringDef(REG_AutoUpdateLastCheck, ''), Default.AutoUpdateLastCheck);
     Result.AutoUpdateSkipVersion := ReadStringDef(REG_AutoUpdateSkipVersion, Default.AutoUpdateSkipVersion);
-    Result.Language := ReadStringDef(REG_Language, Default.Language);
     Result.SkypeCorners := ReadBoolDef(REG_SkypeCorners, True);
     // end read config
 
@@ -941,12 +937,13 @@ begin
       // Write config
       Registry.WriteInteger(REG_ID, Conf.ID);
       Registry.WriteString(REG_Version, TVersionInfo.FileVersion); // Last version
+      Registry.WriteInteger(REG_LanguageId, TLang.LanguageId);
+
       Registry.WriteInteger(REG_IconStyle, Integer(Conf.IconStyle));
       Registry.WriteInteger(REG_SystemBorder, Integer(Conf.SystemBorder));
       Registry.WriteBool(REG_AutoUpdateEnable, Conf.AutoUpdateEnable);
       Registry.WriteString(REG_AutoUpdateLastCheck, DateTimeToStr(Conf.AutoUpdateLastCheck));
       Registry.WriteString(REG_AutoUpdateSkipVersion, Conf.AutoUpdateSkipVersion);
-      Registry.WriteString(REG_Language, Conf.Language);
       Registry.WriteBool(REG_SkypeCorners, Conf.SkypeCorners);
       // end write config
 
@@ -967,7 +964,6 @@ begin
   Conf.AutoUpdateEnable := AutoUpdateScheduler.Enable;
   Conf.AutoUpdateLastCheck := AutoUpdateScheduler.LastCheck;
   Conf.AutoUpdateSkipVersion := AutoUpdateScheduler.SkipVersion;
-  Conf.Language := Language;
   Conf.SkypeCorners := TSkypeCorners.Enable;
 
   SaveConfig(Conf);
