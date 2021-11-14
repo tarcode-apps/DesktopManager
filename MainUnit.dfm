@@ -354,6 +354,10 @@ object DesktopManagerForm: TDesktopManagerForm
       Caption = 'Website'
       OnClick = TrayMenuWebsiteClick
     end
+    object TrayMenuLicense: TMenuItem
+      Caption = 'License'
+      OnClick = TrayMenuLicenseClick
+    end
     object TrayMenuSeparator4: TMenuItem
       Caption = '-'
     end

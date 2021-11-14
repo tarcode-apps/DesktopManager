@@ -50,6 +50,7 @@ uses
   Desktop in 'Desktop.pas',
   Desktop.Skype in 'Desktop.Skype.pas',
   Helpers.Images.Generator in 'Helpers.Images.Generator.pas',
+  Helpers.License in 'Helpers.License.pas',
   Helpers.Services in 'Helpers.Services.pas',
   Helpers.Wts in 'Helpers.Wts.pas',
   MainUnit in 'MainUnit.pas' {DesktopManagerForm},

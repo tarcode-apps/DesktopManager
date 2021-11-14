@@ -215,6 +215,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DCCReference Include="Desktop.pas"/>
         <DCCReference Include="Desktop.Skype.pas"/>
         <DCCReference Include="Helpers.Images.Generator.pas"/>
+        <DCCReference Include="Helpers.License.pas"/>
         <DCCReference Include="Helpers.Services.pas"/>
         <DCCReference Include="Helpers.Wts.pas"/>
         <DCCReference Include="MainUnit.pas">
@@ -324,6 +325,16 @@ $(PostBuildEvent)]]></PostBuildEvent>
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>Win11Images44</ResourceId>
         </RcItem>
+        <RcItem Include="LICENSE.txt">
+            <ContainerId>ResourceItem</ContainerId>
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>LicenseFile1033</ResourceId>
+        </RcItem>
+        <RcItem Include="Localization\Russian\License.txt">
+            <ContainerId>ResourceItem</ContainerId>
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>LicenseFile1049</ResourceId>
+        </RcItem>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -404,6 +415,12 @@ $(PostBuildEvent)]]></PostBuildEvent>
                 <DeployFile LocalName="Icon\Enable.ico" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="Icon\Win10IconList24.png" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="Icon\Win11Icons16.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="LICENSE.txt" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -568,6 +585,12 @@ $(PostBuildEvent)]]></PostBuildEvent>
                 </DeployFile>
                 <DeployFile LocalName="Icon\OldIconList32.png" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="Icon\OldIconList16.png" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="Localization\Russian\License.txt" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Win64\Release\DesktopManager.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win64">
                         <RemoteName>DesktopManager.exe</RemoteName>

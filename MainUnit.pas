@@ -17,7 +17,8 @@ uses
   Tray.Notify.Window, Tray.Notify.Controls,
   Icon.Renderers, Icons.Manager,
   Versions, Versions.Info, Versions.Helpers,
-  HotKey, HotKey.Handler;
+  HotKey, HotKey.Handler,
+  Helpers.License;
 
 const
   REG_Key = 'Software\Desktop Manager';
@@ -72,6 +73,7 @@ type
     TrayMenuAutoUpdateEnable: TMenuItem;
     TrayMenuAutoUpdateCheck: TMenuItem;
     TrayMenuWebsite: TMenuItem;
+    TrayMenuLicense: TMenuItem;
     TrayMenuSeparator1: TMenuItem;
     TrayMenuSeparator2: TMenuItem;
     TrayMenuSeparator3: TMenuItem;
@@ -106,6 +108,7 @@ type
     procedure TrayMenuAutoUpdateEnableClick(Sender: TObject);
     procedure TrayMenuAutoUpdateCheckClick(Sender: TObject);
     procedure TrayMenuWebsiteClick(Sender: TObject);
+    procedure TrayMenuLicenseClick(Sender: TObject);
     procedure TrayMenuCloseClick(Sender: TObject);
 
     procedure CheckBoxBackgroundClick(Sender: TObject);
@@ -440,6 +443,11 @@ end;
 procedure TDesktopManagerForm.TrayMenuWebsiteClick(Sender: TObject);
 begin
   ShellExecute(Handle, 'open', LPTSTR(TLang[12]), nil, nil, SW_RESTORE);
+end;
+
+procedure TDesktopManagerForm.TrayMenuLicenseClick(Sender: TObject);
+begin
+  TLicense.Open;
 end;
 
 procedure TDesktopManagerForm.TrayMenuCloseClick(Sender: TObject);
@@ -803,6 +811,7 @@ begin
   TrayMenuSkypeCorners.Caption    := TLang[20]; // Отключить рамку Skype
   TrayMenuAutorun.Caption         := TLang[6];  // Автозапуск
   TrayMenuWebsite.Caption         := TLang[11]; // Посетить &сайт Desktop Manager
+  TrayMenuLicense.Caption         := TLang[224];// License
   TrayMenuClose.Caption           := TLang[9];  // Выход
 
   TrayMenuAutoUpdate.Caption        := TLang[41]; // Автоматическое обновление
