@@ -21,7 +21,6 @@ object DesktopManagerForm: TDesktopManagerForm
   OnDestroy = FormDestroy
   OnDeactivate = FormDeactivate
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 15
   object PanelTop: TPanel
     Left = 0
@@ -32,13 +31,14 @@ object DesktopManagerForm: TDesktopManagerForm
     BevelOuter = bvNone
     ParentColor = True
     TabOrder = 0
+    ExplicitWidth = 624
     DesignSize = (
       257
       45)
     object LabelAppName: TLabel
       Left = 51
       Top = 5
-      Width = 191
+      Width = 206
       Height = 20
       Anchors = [akLeft, akTop, akRight]
       AutoSize = False
@@ -50,6 +50,7 @@ object DesktopManagerForm: TDesktopManagerForm
       Font.Style = []
       ParentFont = False
       OnClick = LabelAppInfoClick
+      ExplicitWidth = 573
     end
     object ImageIcon: TImage
       Left = 10
@@ -63,7 +64,7 @@ object DesktopManagerForm: TDesktopManagerForm
     object LabelAppInfo: TLabel
       Left = 51
       Top = 22
-      Width = 190
+      Width = 206
       Height = 20
       Anchors = [akLeft, akTop, akRight]
       AutoSize = False
@@ -76,6 +77,7 @@ object DesktopManagerForm: TDesktopManagerForm
       ParentFont = False
       Visible = False
       OnClick = LabelAppInfoClick
+      ExplicitWidth = 573
     end
   end
   object PanelBottom: TPanel
@@ -90,6 +92,7 @@ object DesktopManagerForm: TDesktopManagerForm
     Constraints.MinHeight = 43
     ParentBackground = False
     TabOrder = 2
+    ExplicitWidth = 624
     object LinkGridPanel: TGridPanel
       Left = 0
       Top = 0
@@ -115,6 +118,7 @@ object DesktopManagerForm: TDesktopManagerForm
         end>
       ShowCaption = False
       TabOrder = 0
+      ExplicitWidth = 624
       DesignSize = (
         257
         43)
@@ -134,6 +138,7 @@ object DesktopManagerForm: TDesktopManagerForm
         TabOrder = 0
         TabStop = True
         OnClick = LinkClick
+        ExplicitLeft = 299
       end
     end
   end
@@ -151,6 +156,7 @@ object DesktopManagerForm: TDesktopManagerForm
     Padding.Bottom = 12
     ParentColor = True
     TabOrder = 1
+    ExplicitWidth = 624
     object LabelConfig: TLabel
       AlignWithMargins = True
       Left = 16
@@ -187,6 +193,7 @@ object DesktopManagerForm: TDesktopManagerForm
       Caption = 'Background'
       TabOrder = 1
       OnClick = CheckBoxBackgroundClick
+      ExplicitWidth = 584
     end
     object CheckBoxAnimation: TCheckBox
       AlignWithMargins = True
@@ -202,6 +209,7 @@ object DesktopManagerForm: TDesktopManagerForm
       Caption = 'Animation'
       TabOrder = 2
       OnClick = CheckBoxAnimationClick
+      ExplicitWidth = 584
     end
     object CheckBoxSkypeCorners: TCheckBox
       AlignWithMargins = True
@@ -217,6 +225,7 @@ object DesktopManagerForm: TDesktopManagerForm
       Caption = 'SkypeCorners'
       TabOrder = 0
       OnClick = CheckBoxSkypeCornersClick
+      ExplicitWidth = 584
     end
     object CheckBoxListboxSmoothScrolling: TCheckBox
       AlignWithMargins = True
@@ -231,6 +240,7 @@ object DesktopManagerForm: TDesktopManagerForm
       Caption = 'ListboxSmoothScrolling'
       TabOrder = 4
       OnClick = CheckBoxListboxSmoothScrollingClick
+      ExplicitWidth = 584
     end
     object CheckBoxUIEffects: TCheckBox
       AlignWithMargins = True
@@ -246,6 +256,7 @@ object DesktopManagerForm: TDesktopManagerForm
       Caption = 'UIEffects'
       TabOrder = 3
       OnClick = CheckBoxUIEffectsClick
+      ExplicitWidth = 584
     end
   end
   object PopupMenuTray: TPopupMenu

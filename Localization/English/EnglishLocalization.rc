@@ -13,13 +13,13 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 9, "E&xit"
 10, "Version"
 11, "Desktop Manager &website"
-12, "https://dmanager.tarcode.ru"
+12, "https://dmanager.tarasovlabs.com"
 
 20, "Disable Skype's red &border"
 21, "UI effects"
 22, "Listbox smooth scrolling"
 
-40, "https://dmanager.tarcode.ru/update.uurl"
+40, "https://dmanager.tarasovlabs.com/update.uurl"
 41, "Automatic &updates"
 42, "Turn &on automatic updates"
 43, "Ch&eck for Updates"

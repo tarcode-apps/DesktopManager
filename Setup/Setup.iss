@@ -6,9 +6,9 @@
 #define MainFileHead "DesktopManager"
 #define MainWindowClass "TDesktopManagerForm"
 #define AppMutex "DesktopManagerMutex"
-#define AppPublisherURL "http://dmanager.tarcode.ru"
-#define AppSupportURL "http://dmanager.tarcode.ru"
-#define AppUpdatesURL "http://dmanager.tarcode.ru"
+#define AppPublisherURL "http://dmanager.tarasovlabs.com"
+#define AppSupportURL "http://dmanager.tarasovlabs.com"
+#define AppUpdatesURL "http://dmanager.tarasovlabs.com"
 #define SetupPostfix "Setup"
 
 #define MainFileName MainFileHead + BitsInstall + ".exe"

@@ -13,13 +13,13 @@ LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
 9, "В&ыход"
 10, "Версия"
 11, "Посетить &сайт Desktop Manager"
-12, "https://dmanager.tarcode.ru"
+12, "https://dmanager.tarasovlabs.com"
 
 20, "Отключить красную &рамку Skype"
 21, "UI эффекты"
 22, "Гладкое прокручивание списков"
 
-40, "https://dmanager.tarcode.ru/update.uurl"
+40, "https://dmanager.tarasovlabs.com/update.uurl"
 41, "Автоматическое &обновление"
 42, "&Автоматическая проверка обновлений"
 43, "&Проверить на наличие обновлений"

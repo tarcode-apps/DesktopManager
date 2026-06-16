@@ -2,7 +2,7 @@
 
 This utility allows you to hide the red border during Skype or Skype for Business screen sharing.
 
-![](https://en.dmanager.tarcode.ru/img/promo.png)
+![](https://en.dmanager.tarasovlabs.com/img/promo.png)
 
 ## Advanced Features
 
