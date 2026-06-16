@@ -69,8 +69,6 @@ const
   Desktop = 0;
   BackgroundOff = 1;
   BackgroundOn = 2;
-  Frame = 3;
-  Shape = 4;
 begin
   Result := [Desktop];
 
@@ -78,8 +76,6 @@ begin
     Result := Result + [BackgroundOn]
   else
     Result := Result + [BackgroundOff];
-
-  if IconParams.SkypeSharing then Result := Result + [Frame, Shape];
 end;
 
 function TDefaultIconRenderer.GetIconListName(Dpi: Integer): string;

@@ -5,7 +5,7 @@ object DesktopManagerForm: TDesktopManagerForm
   BorderIcons = []
   BorderStyle = bsToolWindow
   Caption = 'DesktopManagerForm'
-  ClientHeight = 246
+  ClientHeight = 221
   ClientWidth = 257
   Color = clWindow
   Ctl3D = False
@@ -82,7 +82,7 @@ object DesktopManagerForm: TDesktopManagerForm
   end
   object PanelBottom: TPanel
     Left = 0
-    Top = 203
+    Top = 178
     Width = 257
     Height = 43
     Align = alTop
@@ -92,6 +92,7 @@ object DesktopManagerForm: TDesktopManagerForm
     Constraints.MinHeight = 43
     ParentBackground = False
     TabOrder = 2
+    ExplicitTop = 203
     ExplicitWidth = 624
     object LinkGridPanel: TGridPanel
       Left = 0
@@ -146,7 +147,7 @@ object DesktopManagerForm: TDesktopManagerForm
     Left = 0
     Top = 45
     Width = 257
-    Height = 158
+    Height = 133
     Align = alTop
     AutoSize = True
     BevelOuter = bvNone
@@ -156,7 +157,6 @@ object DesktopManagerForm: TDesktopManagerForm
     Padding.Bottom = 12
     ParentColor = True
     TabOrder = 1
-    ExplicitWidth = 624
     object LabelConfig: TLabel
       AlignWithMargins = True
       Left = 16
@@ -182,7 +182,7 @@ object DesktopManagerForm: TDesktopManagerForm
     object CheckBoxBackground: TCheckBox
       AlignWithMargins = True
       Left = 20
-      Top = 51
+      Top = 26
       Width = 217
       Height = 17
       Margins.Left = 16
@@ -191,11 +191,45 @@ object DesktopManagerForm: TDesktopManagerForm
       Margins.Bottom = 4
       Align = alTop
       Caption = 'Background'
-      TabOrder = 1
+      TabOrder = 0
       OnClick = CheckBoxBackgroundClick
+      ExplicitTop = 51
       ExplicitWidth = 584
     end
     object CheckBoxAnimation: TCheckBox
+      AlignWithMargins = True
+      Left = 20
+      Top = 51
+      Width = 217
+      Height = 17
+      Margins.Left = 16
+      Margins.Top = 4
+      Margins.Right = 16
+      Margins.Bottom = 4
+      Align = alTop
+      Caption = 'Animation'
+      TabOrder = 1
+      OnClick = CheckBoxAnimationClick
+      ExplicitTop = 76
+      ExplicitWidth = 584
+    end
+    object CheckBoxListboxSmoothScrolling: TCheckBox
+      AlignWithMargins = True
+      Left = 20
+      Top = 100
+      Width = 217
+      Height = 17
+      Margins.Left = 16
+      Margins.Right = 16
+      Margins.Bottom = 4
+      Align = alTop
+      Caption = 'ListboxSmoothScrolling'
+      TabOrder = 3
+      OnClick = CheckBoxListboxSmoothScrollingClick
+      ExplicitTop = 125
+      ExplicitWidth = 584
+    end
+    object CheckBoxUIEffects: TCheckBox
       AlignWithMargins = True
       Left = 20
       Top = 76
@@ -206,56 +240,10 @@ object DesktopManagerForm: TDesktopManagerForm
       Margins.Right = 16
       Margins.Bottom = 4
       Align = alTop
-      Caption = 'Animation'
-      TabOrder = 2
-      OnClick = CheckBoxAnimationClick
-      ExplicitWidth = 584
-    end
-    object CheckBoxSkypeCorners: TCheckBox
-      AlignWithMargins = True
-      Left = 20
-      Top = 26
-      Width = 217
-      Height = 17
-      Margins.Left = 16
-      Margins.Top = 4
-      Margins.Right = 16
-      Margins.Bottom = 4
-      Align = alTop
-      Caption = 'SkypeCorners'
-      TabOrder = 0
-      OnClick = CheckBoxSkypeCornersClick
-      ExplicitWidth = 584
-    end
-    object CheckBoxListboxSmoothScrolling: TCheckBox
-      AlignWithMargins = True
-      Left = 20
-      Top = 125
-      Width = 217
-      Height = 17
-      Margins.Left = 16
-      Margins.Right = 16
-      Margins.Bottom = 4
-      Align = alTop
-      Caption = 'ListboxSmoothScrolling'
-      TabOrder = 4
-      OnClick = CheckBoxListboxSmoothScrollingClick
-      ExplicitWidth = 584
-    end
-    object CheckBoxUIEffects: TCheckBox
-      AlignWithMargins = True
-      Left = 20
-      Top = 101
-      Width = 217
-      Height = 17
-      Margins.Left = 16
-      Margins.Top = 4
-      Margins.Right = 16
-      Margins.Bottom = 4
-      Align = alTop
       Caption = 'UIEffects'
-      TabOrder = 3
+      TabOrder = 2
       OnClick = CheckBoxUIEffectsClick
+      ExplicitTop = 101
       ExplicitWidth = 584
     end
   end
@@ -268,11 +256,6 @@ object DesktopManagerForm: TDesktopManagerForm
     end
     object TrayMenuSeparator1: TMenuItem
       Caption = '-'
-    end
-    object TrayMenuSkypeCorners: TMenuItem
-      AutoCheck = True
-      Caption = 'SkypeCorners'
-      OnClick = TrayMenuSkypeCornersClick
     end
     object TrayMenuBackground: TMenuItem
       AutoCheck = True

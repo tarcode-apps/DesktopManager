@@ -13,8 +13,7 @@ type
 
   TIconParams = record
     OverlappedContent: Boolean;
-    SkypeSharing: Boolean;
-    constructor Create(aOverlappedContent, aSkypeSharing: Boolean);
+    constructor Create(aOverlappedContent: Boolean);
   end;
 
   TIconsOptions = class
@@ -110,10 +109,9 @@ end;
 
 { TIconParams }
 
-constructor TIconParams.Create(aOverlappedContent, aSkypeSharing: Boolean);
+constructor TIconParams.Create(aOverlappedContent: Boolean);
 begin
   OverlappedContent := aOverlappedContent;
-  SkypeSharing := aSkypeSharing;
 end;
 
 end.

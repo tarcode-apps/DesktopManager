@@ -13,7 +13,7 @@ uses
   Core.Startup,
   Core.Language, Core.Language.Controls,
   Core.UI, Core.UI.Controls, Core.UI.Notifications,
-  Desktop, Desktop.Skype,
+  Desktop,
   Tray.Notify.Window, Tray.Notify.Controls,
   Icon.Renderers, Icons.Manager,
   Versions, Versions.Info, Versions.Helpers,
@@ -25,7 +25,6 @@ const
   REG_ID = 'ID';
   REG_Version = 'Version';
   REG_IconStyle = 'Icon Style';
-  REG_SkypeCorners = 'SkypeCorners';
   REG_AutoUpdateEnable = 'AutoUpdateEnable';
   REG_AutoUpdateLastCheck = 'AutoUpdateLastCheck';
   REG_AutoUpdateSkipVersion = 'AutoUpdateSkipVersion';
@@ -40,7 +39,6 @@ type
   TConfig = record
     ID: TAppID;
     IconStyle: TIconStyle;
-    SkypeCorners: Boolean;
     AutoUpdateEnable: Boolean;
     AutoUpdateLastCheck: TDateTime;
     AutoUpdateSkipVersion: TVersion;
@@ -59,7 +57,6 @@ type
     CheckBoxAnimation: TCheckBox;
     CheckBoxUIEffects: TCheckBox;
     CheckBoxListboxSmoothScrolling: TCheckBox;
-    CheckBoxSkypeCorners: TCheckBox;
     LabelConfig: TLabel;
     PopupMenuTray: TPopupMenu;
     TrayMenuPersonalization: TMenuItem;
@@ -67,7 +64,6 @@ type
     TrayMenuAnimation: TMenuItem;
     TrayMenuUIEffects: TMenuItem;
     TrayMenuListboxSmoothScrolling: TMenuItem;
-    TrayMenuSkypeCorners: TMenuItem;
     TrayMenuAutorun: TMenuItem;
     TrayMenuAutoUpdate: TMenuItem;
     TrayMenuAutoUpdateEnable: TMenuItem;
@@ -103,7 +99,6 @@ type
     procedure TrayMenuPersonalizationClick(Sender: TObject);
     procedure TrayMenuBackgroundClick(Sender: TObject);
     procedure TrayMenuAnimationClick(Sender: TObject);
-    procedure TrayMenuSkypeCornersClick(Sender: TObject);
     procedure TrayMenuAutorunClick(Sender: TObject);
     procedure TrayMenuAutoUpdateEnableClick(Sender: TObject);
     procedure TrayMenuAutoUpdateCheckClick(Sender: TObject);
@@ -115,7 +110,6 @@ type
     procedure CheckBoxAnimationClick(Sender: TObject);
     procedure CheckBoxUIEffectsClick(Sender: TObject);
     procedure CheckBoxListboxSmoothScrollingClick(Sender: TObject);
-    procedure CheckBoxSkypeCornersClick(Sender: TObject);
 
     procedure LabelAppInfoClick(Sender: TObject);
     procedure TrayMenuUIEffectsClick(Sender: TObject);
@@ -150,7 +144,6 @@ type
     LockerListboxSmoothScrolling: ILocker;
     LockerSaveConfig: ILocker;
     LockerSystemBorder: ILocker;
-    LockerSkypeCorners: ILocker;
 
     FUIInfo: TUIInfo;
 
@@ -179,9 +172,6 @@ type
     procedure DesktopManagerClientAreaAnimation(Sender: TObject; Capable: Boolean; State: Boolean);
     procedure DesktopManagerUIEffects(Sender: TObject; Capable: Boolean; State: Boolean);
     procedure DesktopManagerListboxSmoothScrolling(Sender: TObject; Capable: Boolean; State: Boolean);
-
-    procedure SkypeCornersStateChange(Sender: TObject; State: Boolean);
-    procedure SkypeCornersSharingChange(Sender: TObject; Sharing: Boolean);
 
     procedure AutoUpdateSchedulerInCheck(Sender: TObject);
     procedure AutoUpdateSchedulerChecked(Sender: TObject);
@@ -215,7 +205,6 @@ begin
   LockerListboxSmoothScrolling  := TLocker.Create;
   LockerSystemBorder            := TLocker.Create;
   LockerSaveConfig              := TLocker.Create;
-  LockerSkypeCorners            := TLocker.Create;
 
   // Загрузка конфигурации
   Conf := LoadConfig;
@@ -235,13 +224,11 @@ begin
   LabelConfig.Font.Name := Font.Name;
   LabelConfig.Font.Size := Font.Size;
 
-  CheckBoxSkypeCorners.AutoSize           := True;
   CheckBoxBackground.AutoSize             := True;
   CheckBoxAnimation.AutoSize              := True;
   CheckBoxUIEffects.AutoSize              := True;
   CheckBoxListboxSmoothScrolling.AutoSize := True;
 
-  CheckBoxSkypeCorners.AdditionalSpace            := True;
   CheckBoxBackground.AdditionalSpace              := True;
   CheckBoxAnimation.AdditionalSpace               := True;
   CheckBoxUIEffects.AdditionalSpace               := True;
@@ -281,11 +268,6 @@ begin
   TDesktopManager.OnClientAreaAnimation := DesktopManagerClientAreaAnimation;
   TDesktopManager.OnUIEffects := DesktopManagerUIEffects;
   TDesktopManager.OnListboxSmoothScrolling := DesktopManagerListboxSmoothScrolling;
-
-  // Инициализация TSkypeCorners
-  TSkypeCorners.OnStateChange:= SkypeCornersStateChange;
-  TSkypeCorners.OnSkypeSharingChange:= SkypeCornersSharingChange;
-  TSkypeCorners.Enable:= Conf.SkypeCorners;
 
   // Инициализация горячих клавиш
   HotKeyHandler := THotKeyHendler.Create;
@@ -381,12 +363,6 @@ begin
   TDesktopManager.ListboxSmoothScrolling := (Sender as TCheckBox).Checked;
 end;
 
-procedure TDesktopManagerForm.CheckBoxSkypeCornersClick(Sender: TObject);
-begin
-  if LockerSkypeCorners.IsLocked then Exit;
-  TSkypeCorners.Enable := (Sender as TCheckBox).Checked;
-end;
-
 procedure TDesktopManagerForm.TrayMenuPersonalizationClick(Sender: TObject);
 begin
   OpenPersonalization;
@@ -415,12 +391,6 @@ procedure TDesktopManagerForm.TrayMenuListboxSmoothScrollingClick(
 begin
   if LockerListboxSmoothScrolling.IsLocked then Exit;
   TDesktopManager.ListboxSmoothScrolling := (Sender as TMenuItem).Checked;
-end;
-
-procedure TDesktopManagerForm.TrayMenuSkypeCornersClick(Sender: TObject);
-begin
-  if LockerSkypeCorners.IsLocked then Exit;
-  TSkypeCorners.Enable := (Sender as TMenuItem).Checked;
 end;
 
 procedure TDesktopManagerForm.TrayMenuAutorunClick(Sender: TObject);
@@ -642,26 +612,6 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TSkypeCorners Event'}
-procedure TDesktopManagerForm.SkypeCornersStateChange(Sender: TObject;
-  State: Boolean);
-begin
-  LockerSkypeCorners.Lock;
-  try
-    CheckBoxSkypeCorners.Checked := State;
-    TrayMenuSkypeCorners.Checked := State;
-  finally
-    LockerSkypeCorners.Unlock;
-  end;
-end;
-
-procedure TDesktopManagerForm.SkypeCornersSharingChange(Sender: TObject;
-  Sharing: Boolean);
-begin
-  LoadIcon;
-end;
-{$ENDREGION}
-
 {$REGION 'AutoUpdateScheduler Event'}
 procedure TDesktopManagerForm.AutoUpdateSchedulerChecked(Sender: TObject);
 begin
@@ -770,7 +720,7 @@ procedure TDesktopManagerForm.LoadIcon;
 var
   IconParams: TIconParams;
 begin
-  IconParams.Create(not TDesktopManager.DisableOverlappedContent, TSkypeCorners.SkypeSharing);
+  IconParams.Create(not TDesktopManager.DisableOverlappedContent);
 
   TrayIcon.Icon := FIconsManager.GetIcon(IconParams, GetCurrentPPI);
 
@@ -803,12 +753,10 @@ begin
   CheckBoxAnimation.Caption       := TLang[7];  // Воспроизводить анимацию
   CheckBoxUIEffects.Caption       := TLang[21]; // UI эффекты
   CheckBoxListboxSmoothScrolling.Caption:= TLang[22]; // Гладкое прокручивание списков
-  CheckBoxSkypeCorners.Caption    := TLang[20]; // Отключить рамку Skype
   Link.Caption                    := TLang[8];  // Персонализация
   TrayMenuPersonalization.Caption := TLang[8];  // Персонализация
   TrayMenuUIEffects.Caption       := TLang[21]; // UI эффекты
   TrayMenuListboxSmoothScrolling.Caption:= TLang[22]; // Гладкое прокручивание списков
-  TrayMenuSkypeCorners.Caption    := TLang[20]; // Отключить рамку Skype
   TrayMenuAutorun.Caption         := TLang[6];  // Автозапуск
   TrayMenuWebsite.Caption         := TLang[11]; // Посетить &сайт Desktop Manager
   TrayMenuLicense.Caption         := TLang[224];// License
@@ -929,7 +877,6 @@ begin
   Result.AutoUpdateEnable := True;
   Result.AutoUpdateLastCheck := 0;
   Result.AutoUpdateSkipVersion := TVersion.Empty;
-  Result.SkypeCorners := True;
 end;
 
 function TDesktopManagerForm.LoadConfig: TConfig;
@@ -975,7 +922,6 @@ begin
     Result.AutoUpdateEnable := ReadBoolDef(REG_AutoUpdateEnable, Default.AutoUpdateEnable);
     Result.AutoUpdateLastCheck := StrToDateTimeDef(ReadStringDef(REG_AutoUpdateLastCheck, ''), Default.AutoUpdateLastCheck);
     Result.AutoUpdateSkipVersion := ReadStringDef(REG_AutoUpdateSkipVersion, Default.AutoUpdateSkipVersion);
-    Result.SkypeCorners := ReadBoolDef(REG_SkypeCorners, True);
     // end read config
 
     Registry.CloseKey;
@@ -1002,7 +948,6 @@ begin
       Registry.WriteBool(REG_AutoUpdateEnable, Conf.AutoUpdateEnable);
       Registry.WriteString(REG_AutoUpdateLastCheck, DateTimeToStr(Conf.AutoUpdateLastCheck));
       Registry.WriteString(REG_AutoUpdateSkipVersion, Conf.AutoUpdateSkipVersion);
-      Registry.WriteBool(REG_SkypeCorners, Conf.SkypeCorners);
       // end write config
 
       Registry.CloseKey;
@@ -1022,7 +967,6 @@ begin
   Conf.AutoUpdateEnable := AutoUpdateScheduler.Enable;
   Conf.AutoUpdateLastCheck := AutoUpdateScheduler.LastCheck;
   Conf.AutoUpdateSkipVersion := AutoUpdateScheduler.SkipVersion;
-  Conf.SkypeCorners := TSkypeCorners.Enable;
 
   SaveConfig(Conf);
 end;

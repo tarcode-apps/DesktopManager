@@ -214,7 +214,6 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DCCReference Include="Core.UI.Controls.pas"/>
         <DCCReference Include="Core.UI.Notifications.pas"/>
         <DCCReference Include="Desktop.pas"/>
-        <DCCReference Include="Desktop.Skype.pas"/>
         <DCCReference Include="Helpers.Images.Generator.pas"/>
         <DCCReference Include="Helpers.License.pas"/>
         <DCCReference Include="Helpers.Services.pas"/>

@@ -48,7 +48,6 @@ uses
   Core.UI.Controls in 'Core.UI.Controls.pas',
   Core.UI.Notifications in 'Core.UI.Notifications.pas',
   Desktop in 'Desktop.pas',
-  Desktop.Skype in 'Desktop.Skype.pas',
   Helpers.Images.Generator in 'Helpers.Images.Generator.pas',
   Helpers.License in 'Helpers.License.pas',
   Helpers.Services in 'Helpers.Services.pas',

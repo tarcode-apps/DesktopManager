@@ -1,6 +1,6 @@
 # Desktop Manager
 
-This utility allows you to hide the red border during Skype or Skype for Business screen sharing.
+This utility allows you to disable desktop background and UI effects.
 
 ![](https://en.dmanager.tarasovlabs.com/img/promo.png)
 
@@ -11,7 +11,7 @@ This utility allows you to hide the red border during Skype or Skype for Busines
 
 ## Building
 
-Embarcadero RAD Studio 11 is required to build the product.
+Embarcadero RAD Studio 13 is required to build the product.
 
 1. Open a solution DesktopManagerSolution.groupproj
 2. Right-Click DesktopManager project

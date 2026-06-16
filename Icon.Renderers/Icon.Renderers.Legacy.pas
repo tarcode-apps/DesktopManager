@@ -58,14 +58,10 @@ function TLegacyIconRenderer.IconParamsToIndexes(
 const
   Desktop = 0;
   Background = 1;
-  Frame = 2;
-  Shape = 3;
 begin
   Result := [Desktop];
 
-  if IconParams.SkypeSharing then Result := Result + [Shape];
   if IconParams.OverlappedContent then Result := Result + [Background];
-  if IconParams.SkypeSharing then Result := Result + [Frame];
 end;
 
 function TLegacyIconRenderer.GetIconListName(Dpi: Integer): string;
